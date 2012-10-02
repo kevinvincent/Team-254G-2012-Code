@@ -15,7 +15,7 @@ task liftHandler()
 	{
 		if(vexRT[Btn5U])
 		{
-			while(!SensorValue[liftUpBtn])
+			while(!SensorValue[liftUpBtn] && !vexRT[Btn5D])
 			{
 				motor[leftLift] = 69;
 				motor[rightLift] = 69;
@@ -23,7 +23,7 @@ task liftHandler()
 		}
 		if(vexRT[Btn5D])
 		{
-			while(!SensorValue[liftDownBtn])
+			while(!SensorValue[liftDownBtn] && !vexRT[Btn5U])
 			{
 				motor[leftLift] = -69;
 				motor[rightLift] = -69;
