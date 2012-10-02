@@ -18,94 +18,26 @@
 #pragma autonomousDuration(20)
 #pragma userControlDuration(120)
 
-#include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
+#include "Vex_Competition_Includes.c"
+#include "pid.c"
+#include "robotHandlers.c"
 
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-//                          Pre-Autonomous Functions
-//
-// You may want to perform some actions before the competition starts. Do them in the
-// following function.
-//
-/////////////////////////////////////////////////////////////////////////////////////////
-
-
-
+//Called before game starts
 void pre_auton()
 {
-  // Set bStopTasksBetweenModes to false if you want to keep user created tasks running between
-  // Autonomous and Tele-Op modes. You will need to manage all user created tasks if set to false.
   bStopTasksBetweenModes = true;
-
-	// All activities that occur before the competition starts
-	// Example: clearing encoders, setting servo positions, ...
 }
 
+//20 second autonomous
 task autonomous()
 {
-	AutonomousCodePlaceholderForTesting();  // Remove this function call once you have "real" code.
+	AutonomousCodePlaceholderForTesting(); 
 }
 
-task handleDrive()
-{
-	while(true)
-	{
-		motor[leftBackDrive] = vexRT[Ch3];
-		motor[leftFrontDrive] = vexRT[Ch3];
-		motor[rightBackDrive] = vexRT[Ch2];
-		motor[rightFrontDrive] = vexRT[Ch2];
-	}
-}
-
-task handleLift()
-{
-	while(true)
-	{
-		if(vexRT[Btn5U])
-		{
-			while(!SensorValue[liftUpBtn])
-			{
-				motor[leftLift] = 69;
-				motor[rightLift] = 69;
-			}
-		}
-		if(vexRT[Btn5D])
-		{
-			while(!SensorValue[liftDownBtn])
-			{
-				motor[leftLift] = -69;
-				motor[rightLift] = -69;
-			}
-		}
-	}
-
-}
-
-task handleIntake()
-{
-	while(true)
-	{
-		if(vexRT[Btn6U])
-		{
-			motor[intakeLeft] = 69;
-			motor[intakeRight] = 69;
-			wait1Msec(1000);
-			motor[intakeLeft] = 0;
-			motor[intakeRight] = 0;
-			
-			while(!SensorValue[intakeDownBtn])
-			{
-				motor[intakeLeft] = -69;
-				motor[intakeRight] = -69;
-			}
-		}
-	}
-}
-
+//120 second usercontrol
 task usercontrol()
 {
-	// User control code here, inside the loop
-	StartTask(handleDrive);
-	StartTask(handleLift);
-	StartTask(handleIntake);
+	StartTask(driveHandler);
+	StartTask(liftHandler);
+	StartTask(intakeHandler);
 }
