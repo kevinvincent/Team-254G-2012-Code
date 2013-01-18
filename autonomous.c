@@ -1,9 +1,9 @@
 #define TICKSPERREVOLUTION 360
 #define CIRCUMFERENCE 12.5663706144
-#define TICKSTOCMRATIO 360/12.5663706144
+#define TICKSTOCMRATIO TICKSPERREVOLUTION/CIRCUMFERENCE
 #define P 1
 
-//Autonomous Constans
+//Autonomous Constants
 #define FORWARDTIME 2000
 #define TURNDISTANCE 25
 #define INTOPOSITIONTIME 500
@@ -12,17 +12,17 @@
 
 void drive(int left, int right)
 {
-  motor[leftBackDrive] = left;
-	motor[leftFrontDrive] = left;
-	motor[rightBackDrive] = right*-1;
-	motor[rightFrontDrive] = right*-1;
+	motor[leftBackDrive] =	  left;
+	motor[leftFrontDrive] =	  left;
+	motor[rightBackDrive] =	 -right;
+	motor[rightFrontDrive] = -right;
 }
 void drive(int speed)
 {
-	motor[leftBackDrive] = speed;
-	motor[leftFrontDrive] = speed;
-	motor[rightBackDrive] = speed*-1;
-	motor[rightFrontDrive] = speed*-1;
+	motor[leftBackDrive]	=  speed;
+	motor[leftFrontDrive]	=  speed;
+	motor[rightBackDrive]	= -speed;
+	motor[rightFrontDrive]	= -speed;
 }
 
 void driveStraight()
